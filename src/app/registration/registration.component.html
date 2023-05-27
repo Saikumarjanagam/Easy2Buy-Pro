@@ -1,0 +1,48 @@
+<div class="shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 50%;margin: auto;">
+    <div class="card-body">
+        <h1>Sig up</h1>
+    </div>
+    <div class="card-body">
+        <form [formGroup]="registrationForm">
+            <div class="mb-3">
+                <input formControlName="name" [(ngModel)]="user.firstName" class="form-control" type="text"
+                    placeholder="First Name">
+                <label *ngIf="Name?.touched && Name?.invalid" style="color: red;">*Name required</label>
+            </div>
+            <div class="mb-3">
+                <input [(ngModel)]="user.lastName" class="form-control" type="text" placeholder="Last Name">
+            </div>
+            <div class="mb-3">
+                <input formControlName="email" [(ngModel)]="user.email" class="form-control" type="email"
+                    placeholder="Email">
+                <label *ngIf="Email?.touched && Email?.invalid" style="color: red;">*Email required</label>
+            </div>
+            <div class="mb-3">
+                <input formControlName="mobile" [(ngModel)]="user.mobile" class="form-control" type="number"
+                    placeholder="Mobile">
+                <label *ngIf="Mobile?.touched && Mobile?.invalid" style="color: red;">*Mobile Number required</label>
+            </div>
+            <div class="mb-3">
+                <input formControlName="password" [(ngModel)]="user.password" class="form-control" type="password"
+                    placeholder="Password">
+                <label *ngIf="Pass?.touched && Pass?.invalid" style="color: red;">*Password required</label>
+            </div>
+            <div class="mb-3">
+                <input [(ngModel)]="confirmPass" formControlName="confirmpassword" class="form-control" type="password"
+                    placeholder="Confirm-Password">
+                <label *ngIf="confirmPassword?.touched && confirmPassword?.invalid"
+                    style="color: red;">*Confirm-Password required</label>
+                <label *ngIf="user.password != this.confirmPass && confirmPassword?.value && confirmPassword?.touched"
+                    style="color: red;">*Password & Confirm-Password Should be in same</label>
+            </div>
+            <div class="mb-3">
+                <input type="button" class="form-control btn btn-success" (click)="saveUser()"
+                    [disabled]="registrationForm.invalid" value="Sign Up">
+            </div>
+            <hr>
+            <div class="mb-3 mt-3">
+                <label>If you have account, Please <a routerLink="/login">Login Now</a></label>
+            </div>
+        </form>
+    </div>
+</div>

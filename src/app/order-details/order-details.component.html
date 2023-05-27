@@ -1,0 +1,71 @@
+<div class="card p-3">
+    <table style="width: 100%;">
+        <tr>
+            <td>
+                <h3>Order Details</h3>
+            </td>
+            <td class="text-end" style="vertical-align: middle;">
+                <b>{{orderDetail.datePlaced | date}}</b>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <table style="width: 100%;">
+        <tr>
+            <td style="width:49%;">
+                <div style="margin-right: 5%;">
+                    <div>
+                        <label style="padding-left: 7px;">Name</label>
+                        <input name="name" disabled [value]="orderDetail.shippingDetails.name" type="text"
+                            class="form-control">
+                    </div>
+                    <div class="mt-2">
+                        <label style="padding-left: 7px;">Address Line 1</label>
+                        <input disabled name="addressLine1" [value]="orderDetail.shippingDetails.addressLine1"
+                            type="text" class="form-control">
+                    </div>
+                    <div class="mt-2">
+                        <label style="padding-left: 7px;">Address Line 2</label>
+                        <input disabled name="addressLine2" [value]="orderDetail.shippingDetails.addressLine2"
+                            type="text" class="form-control" placeholder="Line 2">
+                    </div>
+                    <div class="mt-2">
+                        <label style="padding-left: 7px;">City</label>
+                        <input disabled name="city" [value]="orderDetail.shippingDetails.city" type="text"
+                            class="form-control">
+
+                    </div>
+                    <div class="mt-2">
+                        <label style="padding-left: 7px;">Pincode</label>
+                        <input disabled name="pincode" [value]="orderDetail.shippingDetails.pincode" type="text"
+                            class="form-control">
+
+                    </div>
+                </div>
+            </td>
+            <td style="border-left: 2px solid green;width: 2%">
+            </td>
+            <td style="vertical-align: top;width: 49%;">
+                <h4>Order Summary</h4>
+                <ul class="list-group list-group-flush">
+                    <li *ngFor="let item of orderDetail.items" class="list-group-item">
+                        {{ item.quantity }} x {{ item.name }}
+                        <div class="float-end">
+                            {{ item.totalPrice | currency:'INR' }}
+                        </div>
+                    </li>
+                    <li class="list-group-item fw-bold">
+                        Total
+                        <div class="float-end">
+                            {{ orderDetail.amount | currency:'INR' }}
+                        </div>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+    <hr>
+    <div class="text-end">
+        <button class="btn btn-outline-success" (click)="redirectToOrdersPage()">Back to Orders</button>
+    </div>
+</div>

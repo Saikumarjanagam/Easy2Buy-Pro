@@ -1,0 +1,86 @@
+<table style="width: 100%;">
+    <tr>
+        <td>
+            <h2>Categories</h2>
+        </td>
+        <td style="float: right;">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#categoryModal"
+                (click)="addCategory()">
+                Add Category
+            </button>
+        </td>
+    </tr>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#Si.No</th>
+            <th>Category Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+        <tr *ngFor="let x of categories,index as i">
+            <td>{{i+1}}</td>
+            <td>{{x.name}}</td>
+            <td>{{x.description}}</td>
+            <td>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#categoryModal"
+                    (click)="editCategory(x)">
+                    <i class="bi bi-pen-fill"></i>
+                </button>
+                &nbsp;
+                <button class="btn btn-danger" (click)="deleteCategory(x.id)"><i class="bi bi-trash"></i></button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="categoryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="categoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="categoryModalLabel">{{modalHeader}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="categoryForm">
+                    <div *ngIf="deleteConfirm">
+                        <span style="color: red;"><i class="bi bi-exclamation-triangle-fill"></i> {{aletMessage}}</span>
+                    </div>
+                    <div *ngIf="AddEdit">
+                        <div>
+                            <input [(ngModel)]="category.name" name="categoryName" class="form-control"
+                                placeholder="Category Name" formControlName="name">
+                        </div>
+                        <div *ngIf="Name?.touched && Name?.invalid">
+                            <span style="color: red;">*Category Name is Required</span>
+                        </div>
+                        <div class="mt-3">
+                            <input [(ngModel)]="category.description" name="description" class="form-control"
+                                placeholder="Category Description" formControlName="description">
+                        </div>
+                        <div *ngIf="Description?.touched && Description?.invalid">
+                            <span style="color: red;">*Description is Required</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button *ngIf="AddEdit" type="button" class="btn btn-primary" (click)="saveCategory()"
+                    data-bs-dismiss="modal" [disabled]="categoryForm.invalid">{{modalFooter}}</button>
+                <!-- <button *ngIf="deleteConfirm" type="button" (click)="deleteCategory(category.id)"
+                    data-bs-dismiss="modal" class="btn btn-danger">
+                    {{modalFooter}}
+                </button> -->
+            </div>
+        </div>
+    </div>
+</div>

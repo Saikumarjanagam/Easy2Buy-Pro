@@ -1,0 +1,19 @@
+<div class="shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 50%;margin: auto;">
+    <div class="card-body">
+        <h1>Sign in</h1>
+    </div>
+    <div class="card-body">
+        <div class="mb-3">
+            <input [(ngModel)]="this.email" type="email" placeholder="Email" class="form-control">
+        </div>
+        <div class="mb-3">
+            <input [(ngModel)]="this.password" type="password" name="password" placeholder="Password"
+                class="form-control">
+        </div>
+        <div class="mb-3">
+            <input type="button" class="form-control btn btn-success" value="Sig In" (click)="login()">
+        </div>
+        <hr>
+        <label>If you don't have account, Please <a routerLink="/registration">Register</a></label>
+    </div>
+</div>

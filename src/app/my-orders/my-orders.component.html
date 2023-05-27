@@ -1,0 +1,56 @@
+<div>
+    <table style="width: 100%;">
+        <tr>
+            <td>
+                <h3>My Orders</h3>
+            </td>
+            <td>
+                <div style="text-align: right " class="mb-3">
+                    <a routerLink="/home" class="btn btn-primary"><i class="bi bi-cart-check-fill"></i> Place
+                        Order</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <div class="card p-2">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let x of myOrders | paginate: { itemsPerPage:this.orderPerPage, currentPage: p }">
+                    <td>{{x.shippingDetails.name}}</td>
+                    <td>{{x.datePlaced |date}}</td>
+                    <td>{{x.amount |currency:'INR'}}</td>
+                    <td>
+                        <a [routerLink]="['/order-details', x.id]">view</a>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+        <table>
+            <tr>
+                <td>
+                    <label>Show </label>
+                    <select [(ngModel)]="orderPerPage">
+                        <option [selected] value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option [value]="this.myOrders.length">All</option>
+                    </select>
+                    <label> Orders</label>
+                </td>
+                <td class="text-end">
+                    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

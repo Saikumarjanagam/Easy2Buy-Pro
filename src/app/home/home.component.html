@@ -1,0 +1,68 @@
+<div class="row filterCard">
+    <div class="col-md-3">
+        <select class="form-control" [(ngModel)]="selectedCategory" (change)="changeCategory($event)"
+            name="selectCategory" (keyup)="loadCategories()">
+            <option value="">All Categories</option>
+            <option *ngFor="let category of categories" [ngValue]="category.name">
+                {{ category.name }}
+            </option>
+        </select>
+    </div>
+    <div class="col-md-9">
+        <input class="form-control ml-2" type="search" placeholder="Search product..." name="searchTerm"
+            [(ngModel)]="searchTerm" (keyup)="loadProducts()">
+    </div>
+    <div class="col-md-12">
+        <hr>
+    </div>
+</div>
+<label *ngFor="let product of products" style="margin: 5px;">
+    <div class="card" style="width: 18rem;">
+        <img src="{{product.imgUrl}}" class="card-img-top" style="height: 150px;"
+            [routerLink]="['/view-product',product.id]">
+        <div class="card-body">
+            <label style="font-weight: bold;font-size: 20px;">{{product.name}}</label>
+            <button class="btn btn-success" style="float: right;">{{product.rating}}<i
+                    class="bi bi-star-fill"></i></button>
+            <hr>
+            <table style="width: 100%;" [routerLink]="['/view-product',product.id]">
+                <tr>
+                    <td style="width: 50%;">
+                        <h6>Price</h6>
+                    </td>
+                    <td style="width: 50%;text-align: right;">{{product.price | currency:'INR'}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="card-footer">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width:100%">
+                        <button (click)="buyNow(product)" routerLink="/shopping-cart" class="btn btn-outline-primary"
+                            style="width: 100%;">Buy Now</button>
+                    </td>
+                    <!-- <td style="width:50%;">
+                        <button [routerLink]="['/view-product',product.id]" class="btn btn-outline-info"
+                            style="width: 100%;margin-left: 3px;">View</button>
+                    </td> -->
+                </tr>
+            </table>
+            <table style="width:100%;margin-top: 3px;">
+                <tr style="width:100%">
+                    <td *ngIf="getQuantity(product) === 0; else updateQuantity"><button class="btn btn-outline-success"
+                            style="width:100%" (click)="addToCart(product)">Add to
+                            CART</button></td>
+                    <ng-template #updateQuantity>
+                        <td style="width:30%"><button class="btn btn-outline-success" style="width:100%"
+                                (click)=" removeFromCart(product)"><i class="bi bi-bag-dash-fill"></i></button></td>
+                        <td style="width:40%"><button class="btn btn-outline-success" style="width:100%;"
+                                routerLink="/shopping-cart"> {{getQuantity(product)}} In Cart</button>
+                        </td>
+                        <td style="width:30%"><button class="btn btn-outline-success" style="width:100%"
+                                (click)="addToCart(product)"><i class="bi bi-bag-plus-fill"></i></button></td>
+                    </ng-template>
+                </tr>
+            </table>
+        </div>
+    </div>
+</label>
