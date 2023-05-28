@@ -16,6 +16,9 @@
         <hr>
     </div>
 </div>
+<div *ngIf="searchTerm!=product.name">
+    Items Not Found
+</div>
 <label *ngFor="let product of products" style="margin: 5px;">
     <div class="card" style="width: 18rem;">
         <img src="{{product.imgUrl}}" class="card-img-top" style="height: 150px;"
