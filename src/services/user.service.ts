@@ -6,10 +6,12 @@ import { User } from 'src/models/user.model';
     providedIn: 'root'
 })
 export class UserService {
+    public loginSuccess: boolean = false;
     constructor(private fireStore: AngularFirestore) { }
 
     validate(email: string, password: string) {
         return this.fireStore.collection('users', ref => ref.where('email', '==', email).where('password', '==', password)).snapshotChanges();
+
     }
     register(userModel: User) {
         return this.fireStore.collection('users').add({ ...userModel });
@@ -26,6 +28,7 @@ export class UserService {
     getById(id: string) {
         return this.fireStore.doc<User>('users' + '/' + id).valueChanges()
     }
+
     get firstName() {
         return localStorage.getItem('firstName');
     }

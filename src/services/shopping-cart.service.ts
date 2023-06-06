@@ -8,7 +8,8 @@ import { UserService } from "./user.service";
 })
 
 export class ShoppingCartService {
-
+    public checkOut: boolean = false;
+    public buyNowCheck: boolean = false;
     private cartItems: ShoppingCartItem[] = [];
     private _cartItemsQuantity: number = 0;
     private _cartItemsTotal: number = 0;
@@ -103,4 +104,5 @@ export class ShoppingCartService {
 
         this.cartCount.next(this._cartItemsQuantity);
     }
+
 }

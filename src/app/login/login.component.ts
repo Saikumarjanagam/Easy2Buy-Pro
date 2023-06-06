@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/models/user.model';
+import { ShoppingCartService } from 'src/services/shopping-cart.service';
 import { UserService } from 'src/services/user.service';
 
 @Component({
@@ -10,9 +12,20 @@ import { UserService } from 'src/services/user.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private _userService: UserService, private toastr: ToastrService, private route: Router) { }
+  constructor(private _userService: UserService, private toastr: ToastrService, private route: Router, private _cartService: ShoppingCartService) { }
   email: string;
   password: string;
+
+  logInForm = new FormGroup({
+    email: new FormControl(null, Validators.required),
+    password: new FormControl(null, Validators.required),
+  })
+  get Email() {
+    return this.logInForm.get('email')
+  }
+  get Password() {
+    return this.logInForm.get('password')
+  }
 
   login() {
     this._userService.validate(this.email, this.password)
@@ -38,7 +51,16 @@ export class LoginComponent {
 
       this.toastr.success('Login successful...!');
       this.route.navigate(['/home']);
-    } else {
+      if (this._cartService.checkOut) {
+        this.route.navigate(['/shipping-order'])
+      }
+      else {
+        this.route.navigate(['/home']);
+      }
+
+    }
+
+    else {
       this.toastr.error('In-valid credentials...!');
     }
   }

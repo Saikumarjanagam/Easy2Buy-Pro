@@ -51,5 +51,6 @@ export class ShippingComponent implements OnInit {
         this.toastr.error('Un-handled exception occured...!');
       });
   }
+
 }
 

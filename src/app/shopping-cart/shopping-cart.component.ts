@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Product } from 'src/models/product.model';
 import { ShoppingCartItem } from 'src/models/shopping-cart-item';
 import { ShoppingCartService } from 'src/services/shopping-cart.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -13,7 +14,7 @@ export class ShoppingCartComponent implements OnInit {
 
   _cartItems: ShoppingCartItem[] = [];
 
-  constructor(private _cartService: ShoppingCartService, private router: Router) { }
+  constructor(private _cartService: ShoppingCartService, private router: Router, private _userService: UserService) { }
 
   ngOnInit() {
     this._cartItems = this._cartService.CartItems;
@@ -23,7 +24,13 @@ export class ShoppingCartComponent implements OnInit {
     this._cartItems = this._cartService.CartItems;
   }
   checkOut() {
-    this.router.navigate(['/shipping-order'])
+    if (this._userService.firstName) {
+      this.router.navigate(['/shipping-order'])
+    }
+    else {
+      this.router.navigate(['/login'])
+    }
+    this._cartService.checkOut = true;
   }
   addToCart(_cartItem: ShoppingCartItem) {
     this._cartService.addItemToCart(_cartItem);

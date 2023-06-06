@@ -31,6 +31,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { ViewProductComponent } from './view-product/view-product.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const route: Routes = [
   { path: '', component: HomeComponent },
@@ -69,6 +70,7 @@ const route: Routes = [
     AdminOrdersComponent,
     EditProductComponent,
     ViewProductComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

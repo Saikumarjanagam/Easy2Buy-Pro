@@ -30,8 +30,9 @@ export class AppComponent {
     localStorage.removeItem('firstName');
     localStorage.removeItem('loggedInUserId');
     localStorage.removeItem('isAdmin');
-    this.toastr.success('LogOut Successfully')
-    this.router.navigate(['/login'])
+    this.toastr.success('LogOut Successfully');
+    this.router.navigate(['/login']);
+    this._cartService.checkOut = false;
   }
 
 

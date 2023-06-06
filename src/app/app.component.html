@@ -1,53 +1,59 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-  <div class="container-fluid" style="background-color: rgb(208, 235, 235);">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/home"> <img src="assets\Easy2Buy-LOGO1.png"
-              style="width: 130px;height: 30px;"></a>
-        </li>
-        <li class="nav-item" style="margin-top: 10px;">
-          <a class="nav-link" routerLink="/shopping-cart">
-            <i class="bi bi-cart-fill"></i>
-            <span class="badge rounded-pill bg-warning text-dark">{{ shoppingCartItemCount$ | async
-              }}</span>
-          </a>
-        </li>
-        <li class="nav-item" *ngIf="!userService.firstName" style="margin-top: 10px;">
-          <a class="nav-link" routerLink="/login"><i class="bi bi-person"></i></a>
-        </li>
-        <li *ngIf="userService.firstName" class="nav-item dropdown" style="margin-top: 10px;">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="bi bi-person-circle"></i> {{userService.firstName}}
-          </a>
-          <ul class="dropdown-menu">
-            <!-- <li><a class="dropdown-item" href="#">Action</a></li> -->
-            <li> <a *ngIf="userService.firstName" routerLink="/my-orders" class="dropdown-item a">MyOrders</a></li>
-            <li> <a *ngIf="userService.isAdmin" routerLink="/users" class="dropdown-item a">Users</a></li>
-            <li>
-              <a *ngIf="userService.isAdmin" routerLink="/category" class="dropdown-item a">Category</a>
-            </li>
-            <li>
-              <a *ngIf="userService.isAdmin" routerLink="/products" class="dropdown-item a">Products</a>
-            </li>
-            <li>
-              <a *ngIf="userService.isAdmin" routerLink="/admin-orders" class="dropdown-item a">Admin Orders</a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a *ngIf="userService.loggedInUserId" class="dropdown-item a" (click)="logOut()">logOut</a></li>
-          </ul>
-        </li>
-      </ul>
+<div style="width: 100%;margin: auto;">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top" style="border: 0px;padding: 0px;margin: 0px;">
+    <div class="container-fluid" style="background-color: rgb(208, 235, 235);">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/home"> <img src="assets\Easy2Buy-LOGO1.png"
+                style="width: 80px;height: 25px;"></a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/home"><label
+                style="font-family: Forte;font-weight: bold;color: rgb(36, 26, 101);">Easy<span
+                  style="color: rgb(180, 7, 7);">2</span>Buy</label></a>
+          </li>
+          <li class="nav-item" style="float: right;">
+            <a class="nav-link" routerLink="/shopping-cart">
+              <i class="bi bi-cart-fill"></i>
+              <span class="badge rounded-pill bg-warning text-dark">{{ shoppingCartItemCount$ | async
+                }}</span>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="!userService.firstName" style="float: right;">
+            <a class="nav-link" routerLink="/login"><i class="bi bi-person-circle"></i></a>
+          </li>
+          <li *ngIf="userService.firstName" class="nav-item dropdown" style="float: right;">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle"></i> {{userService.firstName}}
+            </a>
+            <ul class="dropdown-menu">
+              <!-- <li><a class="dropdown-item" href="#">Action</a></li> -->
+              <li> <a *ngIf="userService.firstName" routerLink="/my-orders" class="dropdown-item a">MyOrders</a></li>
+              <li> <a *ngIf="userService.isAdmin" routerLink="/users" class="dropdown-item a">Users</a></li>
+              <li>
+                <a *ngIf="userService.isAdmin" routerLink="/category" class="dropdown-item a">Category</a>
+              </li>
+              <li>
+                <a *ngIf="userService.isAdmin" routerLink="/products" class="dropdown-item a">Products</a>
+              </li>
+              <li>
+                <a *ngIf="userService.isAdmin" routerLink="/admin-orders" class="dropdown-item a">Admin Orders</a>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a *ngIf="userService.loggedInUserId" class="dropdown-item a" (click)="logOut()">logOut</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
-
-<div style="padding: 20px;">
+  </nav>
+</div>
+<div style="padding: 20px;width: 100%">
   <router-outlet></router-outlet>
 </div>
