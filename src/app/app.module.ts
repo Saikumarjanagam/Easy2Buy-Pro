@@ -32,24 +32,29 @@ import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { ViewProductComponent } from './view-product/view-product.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { UnAuthComponent } from './un-auth/un-auth.component';
+import { AdminGuard } from './guards/admin.guard';
+import { AuthGuard } from './guards/auth.guard';
 
 const route: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
-  { path: 'category', component: CategoryComponent },
-  { path: 'users', component: UsersComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'add-produt', component: AddProductComponent },
+  { path: 'category', component: CategoryComponent, canActivate: [AdminGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [AdminGuard] },
+  { path: 'products', component: ProductsComponent, canActivate: [AdminGuard] },
+  { path: 'add-produt', component: AddProductComponent, canActivate: [AdminGuard] },
   { path: 'shopping-cart', component: ShoppingCartComponent },
-  { path: 'shipping-order', component: ShippingComponent },
-  { path: 'order-success', component: OrderSuccessComponent },
-  { path: 'my-orders', component: MyOrdersComponent },
-  { path: 'order-details/:id', component: OrderDetailsComponent },
-  { path: 'admin-orders', component: AdminOrdersComponent },
-  { path: 'edit-product/:id', component: EditProductComponent },
+  { path: 'shipping-order', component: ShippingComponent, canActivate: [AuthGuard] },
+  { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
+  { path: 'my-orders', component: MyOrdersComponent, canActivate: [AuthGuard] },
+  { path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [AuthGuard] },
+  { path: 'admin-orders', component: AdminOrdersComponent, canActivate: [AdminGuard] },
+  { path: 'edit-product/:id', component: EditProductComponent, canActivate: [AdminGuard] },
   { path: 'view-product/:id', component: ViewProductComponent },
+  { path: 'un-auth', component: UnAuthComponent },
+  { path: '**', component: NotFoundComponent }
 ]
 
 @NgModule({
@@ -71,6 +76,7 @@ const route: Routes = [
     EditProductComponent,
     ViewProductComponent,
     NotFoundComponent,
+    UnAuthComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,7 +90,7 @@ const route: Routes = [
     ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
     RouterModule.forRoot(route),
   ],
-  providers: [UserService, categoryService, ProductService, ShoppingCartService, ShippingService],
+  providers: [UserService, categoryService, ProductService, ShoppingCartService, ShippingService, AdminGuard, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
