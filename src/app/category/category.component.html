@@ -63,8 +63,8 @@
                             <span style="color: red;">*Category Name is Required</span>
                         </div>
                         <div class="mt-3">
-                            <input [(ngModel)]="category.description" name="description" class="form-control"
-                                placeholder="Category Description" formControlName="description">
+                            <textarea [(ngModel)]="category.description" name="description" class="form-control"
+                                rows="4" placeholder="Category Description" formControlName="description"></textarea>
                         </div>
                         <div *ngIf="Description?.touched && Description?.invalid">
                             <span style="color: red;">*Description is Required</span>
