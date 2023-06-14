@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   categories: Category[] = [];
   selectedCategory: string = '';
   searchTerm: string;
+  // notFounf: boolean = false;
+  // notFound = this.loadProducts.length >= 0 == true;
 
   ngOnInit(): void {
     this.loadProducts();
