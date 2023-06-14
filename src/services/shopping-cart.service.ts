@@ -19,6 +19,9 @@ export class ShoppingCartService {
     private cartCount = new BehaviorSubject<number>(0);
     cartCount$ = this.cartCount.asObservable();
 
+    private buyCount = new BehaviorSubject<number>(0);
+    buyCount$ = this.buyCount.asObservable();
+
     constructor(private _userService: UserService) {
         this.loadCartItems();
     }
@@ -44,22 +47,22 @@ export class ShoppingCartService {
             this.cartItems.push(_cartItem);
         this.saveCartItem();
     }
-    buyNow(_cartItem: ShoppingCartItem) {
-        // this.loadCartItems();
+    buyNow(_buyItem: ShoppingCartItem) {
+        this.loadBuyItems();
 
-        const _itemIndex = this.cartItems.findIndex(x => x.id === _cartItem.id);
+        const _itemIndex = this.cartItems.findIndex(x => x.id === _buyItem.id);
 
-        // if (_itemIndex >= 0) {
+        if (_itemIndex >= 0) {
 
-        //     this.cartItems[_itemIndex].totalPrice = this.cartItems[_itemIndex].quantity * this.cartItems[_itemIndex].price;
-        // }
-        // else if (_itemIndex > -1) {
-        //     this.cartItems[_itemIndex].quantity += 1;
-        //     this.cartItems[_itemIndex].totalPrice = this.cartItems[_itemIndex].quantity * this.cartItems[_itemIndex].price;
-        // }
-        // else
-        this.buynow.push(_cartItem);
-        this.buynow
+            this.cartItems[_itemIndex].totalPrice = this.cartItems[_itemIndex].quantity * this.cartItems[_itemIndex].price;
+        }
+        else if (_itemIndex > -1) {
+            this.cartItems[_itemIndex].quantity += 1;
+            this.cartItems[_itemIndex].totalPrice = this.cartItems[_itemIndex].quantity * this.cartItems[_itemIndex].price;
+        }
+        else
+            this.buynow.push(_buyItem);
+        this.buyitem();
         // this.saveCartItem();
     }
 
@@ -98,6 +101,21 @@ export class ShoppingCartService {
         this._cartItemsQuantity = _totalQty;
         this._cartItemsTotal = _totalPrice;
     }
+    loadBuyItems() {
+        let cartItemsStorageKey = this._userService.loggedInUserId + 'cart_items';
+        this.cartItems = JSON.parse(localStorage.getItem(cartItemsStorageKey) || '[]');
+
+        let _totalQty = 0;
+        this.cartItems.forEach(_item => { _totalQty += _item.quantity });
+
+        this.cartCount.next(_totalQty);
+
+        let _totalPrice = 0;
+        this.cartItems.forEach(_item => { _totalPrice += _item.totalPrice });
+
+        this._cartItemsQuantity = _totalQty;
+        this._cartItemsTotal = _totalPrice;
+    }
     saveCartItem() {
         let cartItemsStorageKey = this._userService.loggedInUserId + 'cart_items';
         let cartItemsCountKey = this._userService.loggedInUserId + 'cart_count';
@@ -106,6 +124,15 @@ export class ShoppingCartService {
         localStorage.setItem(cartItemsCountKey, this._cartItemsQuantity.toString());
 
         this.cartCount.next(this._cartItemsQuantity);
+    }
+    buyitem() {
+        let buyItemsStorageKey = this._userService.loggedInUserId + 'buy_items';
+        let buyItemsCountKey = this._userService.loggedInUserId + 'buy_count';
+
+        localStorage.setItem(buyItemsStorageKey, JSON.stringify(this.cartItems));
+        localStorage.setItem(buyItemsCountKey, this._cartItemsQuantity.toString());
+
+        this.buyCount.next(this._cartItemsQuantity);
     }
 
 }
