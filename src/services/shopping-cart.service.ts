@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { ShoppingCartItem } from "src/models/shopping-cart-item";
 import { UserService } from "./user.service";
+import { BuynowItem } from "src/models/buynow-item.model";
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +12,7 @@ export class ShoppingCartService {
     public checkOut: boolean = false;
     public buyNowCheck: boolean = false;
     private cartItems: ShoppingCartItem[] = [];
+    private buynow: BuynowItem[] = [];
     private _cartItemsQuantity: number = 0;
     private _cartItemsTotal: number = 0;
 
@@ -43,21 +45,22 @@ export class ShoppingCartService {
         this.saveCartItem();
     }
     buyNow(_cartItem: ShoppingCartItem) {
-        this.loadCartItems();
+        // this.loadCartItems();
 
         const _itemIndex = this.cartItems.findIndex(x => x.id === _cartItem.id);
 
-        if (_itemIndex >= 0) {
+        // if (_itemIndex >= 0) {
 
-            this.cartItems[_itemIndex].totalPrice = this.cartItems[_itemIndex].quantity * this.cartItems[_itemIndex].price;
-        }
-        else if (_itemIndex > -1) {
-            this.cartItems[_itemIndex].quantity += 1;
-            this.cartItems[_itemIndex].totalPrice = this.cartItems[_itemIndex].quantity * this.cartItems[_itemIndex].price;
-        }
-        else
-            this.cartItems.push(_cartItem);
-        this.saveCartItem();
+        //     this.cartItems[_itemIndex].totalPrice = this.cartItems[_itemIndex].quantity * this.cartItems[_itemIndex].price;
+        // }
+        // else if (_itemIndex > -1) {
+        //     this.cartItems[_itemIndex].quantity += 1;
+        //     this.cartItems[_itemIndex].totalPrice = this.cartItems[_itemIndex].quantity * this.cartItems[_itemIndex].price;
+        // }
+        // else
+        this.buynow.push(_cartItem);
+        this.buynow
+        // this.saveCartItem();
     }
 
     removeItemFromCart(_cartItem: ShoppingCartItem) {

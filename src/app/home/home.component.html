@@ -22,7 +22,7 @@
     <h6>Please check the spelling or try searching for something else</h6>
 </div>
 <div style="width: 100%;">
-    <label *ngFor="let x of products" style="width: 25%;">
+    <label *ngFor="let x of products" style="margin:5px ;">
         <div class="card" style="width: 18rem;">
             <img src="{{x.imgUrl}}" class="card-img-top" style="height: 150px;" [routerLink]="['/view-product',x.id]">
             <div class="card-body">
