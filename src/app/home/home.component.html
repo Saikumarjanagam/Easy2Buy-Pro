@@ -22,19 +22,22 @@
     <h6>Please check the spelling or try searching for something else</h6>
 </div>
 
-<label *ngFor="let x of products" style="margin:5px ;">
+<label *ngFor="let product of products" style="margin:5px ;">
     <div class="card" style="width: 18rem;">
-        <img src="{{x.imgUrl}}" class="card-img-top" style="height: 150px;" [routerLink]="['/view-product',x.id]">
+        <img src="{{product.imgUrl}}" class="card-img-top" style="height: 150px;"
+            [routerLink]="['/view-product',product.id]">
         <div class="card-body">
-            <label style="font-weight: bold;font-size: 20px;" [routerLink]="['/view-product',x.id]">{{x.name}}</label>
-            <button class="btn btn-success" style="float: right;">{{x.rating}}<i class="bi bi-star-fill"></i></button>
+            <label style="font-weight: bold;font-size: 20px;"
+                [routerLink]="['/view-product',product.id]">{{product.name}}</label>
+            <button class="btn btn-success" style="float: right;">{{product.rating}}<i
+                    class="bi bi-star-fill"></i></button>
             <hr>
-            <table style="width: 100%;" [routerLink]="['/view-product',x.id]">
+            <table style="width: 100%;" [routerLink]="['/view-product',product.id]">
                 <tr>
                     <td style="width: 50%;">
                         <h6>Price</h6>
                     </td>
-                    <td style="width: 50%;text-align: right;">{{x.price | currency:'INR'}}</td>
+                    <td style="width: 50%;text-align: right;">{{product.price | currency:'INR'}}</td>
                 </tr>
             </table>
         </div>
