@@ -102,13 +102,13 @@ export class ShoppingCartService {
         this._cartItemsTotal = _totalPrice;
     }
     loadBuyItems() {
-        let cartItemsStorageKey = this._userService.loggedInUserId + 'cart_items';
-        this.cartItems = JSON.parse(localStorage.getItem(cartItemsStorageKey) || '[]');
+        let buyItemsStorageKey = this._userService.loggedInUserId + 'buy_items';
+        this.cartItems = JSON.parse(localStorage.getItem(buyItemsStorageKey) || '[]');
 
         let _totalQty = 0;
         this.cartItems.forEach(_item => { _totalQty += _item.quantity });
 
-        this.cartCount.next(_totalQty);
+        this.buyCount.next(_totalQty);
 
         let _totalPrice = 0;
         this.cartItems.forEach(_item => { _totalPrice += _item.totalPrice });
