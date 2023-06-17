@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Order } from 'src/models/order.model';
 import { ShippingService } from 'src/services/shipping.service';
 
@@ -11,9 +12,10 @@ export class MyOrdersComponent implements OnInit {
 
   p: number = 1;
   myOrders: Order[] = [];
+  orders = new Order()
   orderPerPage: number = 5;
 
-  constructor(public service: ShippingService) { }
+  constructor(public service: ShippingService, private toastr: ToastrService) { }
   ngOnInit(): void {
     this.loadData();
   }
@@ -30,5 +32,14 @@ export class MyOrdersComponent implements OnInit {
         });
 
       })
+  }
+  deleteOrder(_orderId: any) {
+    this.service.delete(_orderId)
+      .then((response) => {
+        this.toastr.success('Product deleted successfully...!');
+      })
+      .catch((error: Response) => {
+        this.toastr.error('Un-handled exception occured...!');
+      });
   }
 }

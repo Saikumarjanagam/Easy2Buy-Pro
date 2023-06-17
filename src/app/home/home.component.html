@@ -45,8 +45,8 @@
             <table style="width: 100%;">
                 <tr>
                     <td style="width:100%">
-                        <button (click)="buyNow(product)" routerLink="/shipping-order" class="btn btn-outline-primary"
-                            style="width: 100%;">Buy Now</button>
+                        <button (click)="buyNow(product)" [routerLink]="['/buy-item',product.id]"
+                            class="btn btn-outline-primary" style="width: 100%;">Buy Now</button>
                     </td>
                     <!-- <td style="width:50%;">
                         <button [routerLink]="['/view-product',product.id]" class="btn btn-outline-info"

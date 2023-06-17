@@ -62,7 +62,7 @@ export class ViewProductComponent implements OnInit {
     let _cartItem = _product as unknown as ShoppingCartItem;
     _cartItem.quantity = 1;
     _cartItem.totalPrice = _cartItem.quantity * _cartItem.price;
-    this._cartService.buyNow(_cartItem);
+    // this._cartService.buyNow(_cartItem);
   }
   removeFromCart(_product: Product) {
     let _cartItem = _product as unknown as ShoppingCartItem;

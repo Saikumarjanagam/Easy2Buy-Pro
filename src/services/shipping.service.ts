@@ -11,6 +11,9 @@ export class ShippingService {
     create(_order: Order) {
         return this.fireStore.collection('orders').add({ ..._order });
     }
+    delete(_orderId: string) {
+        return this.fireStore.doc('orders/' + _orderId).delete();
+    }
     getUserOrders(userId: string) {
         return this.fireStore.collection('orders', ref => ref.where('userId', '==', userId)).snapshotChanges();
     }

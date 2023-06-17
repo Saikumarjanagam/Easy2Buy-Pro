@@ -53,6 +53,26 @@
                         <div class="float-end">
                             {{ item.totalPrice | currency:'INR' }}
                         </div>
+                        <div>
+                            <img src="{{item.imgUrl}}">
+                        </div>
+                    </li>
+                    <!-- <li class="list-group-item fw-bold">
+                        Total
+                        <div class="float-end">
+                            {{ orderDetail.amount | currency:'INR' }}
+                        </div>
+                    </li> -->
+                </ul>
+                <ul class="list-group list-group-flush">
+                    <li *ngFor="let items of orderDetail.buyItems" class="list-group-item">
+                        {{ BuyItemCount }} x {{items.name }}
+                        <div class="float-end">
+                            {{ BuyItemTotal | currency:'INR' }}
+                        </div>
+                        <div>
+                            <img src="{{items.imgUrl}}">
+                        </div>
                     </li>
                     <li class="list-group-item fw-bold">
                         Total

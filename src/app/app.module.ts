@@ -35,6 +35,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { UnAuthComponent } from './un-auth/un-auth.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { BuyItemsComponent } from './buy-items/buy-items.component';
 
 const route: Routes = [
   { path: '', component: HomeComponent },
@@ -53,6 +54,7 @@ const route: Routes = [
   { path: 'admin-orders', component: AdminOrdersComponent, canActivate: [AdminGuard] },
   { path: 'edit-product/:id', component: EditProductComponent, canActivate: [AdminGuard] },
   { path: 'view-product/:id', component: ViewProductComponent },
+  { path: 'buy-item/:id', component: BuyItemsComponent },
   { path: 'un-auth', component: UnAuthComponent },
   { path: '**', component: NotFoundComponent }
 ]
@@ -77,6 +79,7 @@ const route: Routes = [
     ViewProductComponent,
     NotFoundComponent,
     UnAuthComponent,
+    BuyItemsComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,65 @@
+<div class="card componentStyle">
+    <div style="margin: 1rem;">
+        <h2>Shipping</h2>
+        <hr>
+        <div class="row">
+            <div class="col-6">
+                <form #f="ngForm">
+                    <div class="mb-3">
+                        <input #name="ngModel" placeholder="Name" name="name" [(ngModel)]="shipping.name" type="text"
+                            class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <input #addressLine1="ngModel" name="addressLine1" [(ngModel)]="shipping.addressLine1"
+                            type="text" class="form-control" placeholder="Line 1" required>
+                    </div>
+                    <div class="mb-3">
+                        <input #addressLine2="ngModel" name="addressLine2" [(ngModel)]="shipping.addressLine2"
+                            type="text" class="form-control" placeholder="Line 2" required>
+                    </div>
+                    <div class="mb-3">
+                        <input placeholder="City" #city="ngModel" name="city" [(ngModel)]="shipping.city" type="text"
+                            class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <input placeholder="Pincode" #city="ngModel" name="pincode" [(ngModel)]="shipping.pincode"
+                            type="number" class="form-control" required>
+                    </div>
+                    <hr>
+                    <div class="mt-6">
+                        <button (click)="placeOrder()" [disabled]="!f.valid" class="btn btn-primary"><i
+                                class="bi bi-cart-check-fill"></i> Place
+                            Order</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Order Summary</h4>
+                        <p class="card-text">You have {{ totalItemsCount }} items in your shopping cart.</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                {{ totalItemsCount }} x {{ product.name }}
+                                <div class="float-end">
+                                    {{ buyItemTotal | currency:'INR':'symbol' }}
+                                </div>
+                            </li>
+                            <li class="list-group-item fw-bold">
+                                Total
+                                <div class="float-end">
+                                    {{ buyItemTotal | currency:'INR':'symbol' }}
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer">
+                        <button (click)="addItem()" class="btn btn-outline-success">+</button> &nbsp;
+                        <button *ngIf="totalItemsCount > 1" (click)="minusItem()"
+                            class="btn btn-outline-success">-</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

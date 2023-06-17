@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { BuynowItem } from 'src/models/buynow-item.model';
 import { Category } from 'src/models/category.model';
 import { Product } from 'src/models/product.model';
 import { ShoppingCartItem } from 'src/models/shopping-cart-item';
@@ -24,12 +25,13 @@ export class HomeComponent implements OnInit {
   categories: Category[] = [];
   selectedCategory: string = '';
   searchTerm: string;
-  // notFounf: boolean = false;
+  // notFound: boolean = false;
   // notFound = this.loadProducts.length >= 0 == true;
 
   ngOnInit(): void {
     this.loadProducts();
     this.loadCategories();
+    this._cartService.clearBuyItems();
   }
   loadProducts() {
     this._productService.read(this.searchTerm, this.selectedCategory)
@@ -69,10 +71,12 @@ export class HomeComponent implements OnInit {
     this._cartService.addItemToCart(_cartItem);
   }
   buyNow(_product: Product) {
-    let _cartItem = _product as unknown as ShoppingCartItem;
-    _cartItem.quantity = 1;
-    _cartItem.totalPrice = _cartItem.quantity * _cartItem.price;
-    this._cartService.buyNow(_cartItem);
+    let _cartItem = _product as unknown as BuynowItem;
+    // _cartItem.quantity = 1;
+    // _cartItem.totalPrice = _cartItem.quantity * _cartItem.price;
+    this._cartService._buyItemsQuantity = 1;
+    this.router.navigate(['/buy-item', this.product.id])
+    this._cartService.buyNowItem(_cartItem);
     if (this._userService.firstName) {
       this.router.navigate(['/shipping-order'])
     }
