@@ -8,6 +8,6 @@ export class Order {
     datePlaced: number;
     shippingDetails: ShippingModel = new ShippingModel();
     items: ShoppingCartItem[] = [];
-    buyItems: BuynowItem[] = [];
+    buyItems: BuynowItem = new BuynowItem();
     amount: number;
 }

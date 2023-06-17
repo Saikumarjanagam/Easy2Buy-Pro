@@ -21,6 +21,7 @@ export class BuyItemsComponent implements OnInit {
   constructor(private _productService: ProductService, private toastr: ToastrService, private router: ActivatedRoute, private _categoryService: categoryService, private _cartService: ShoppingCartService, private _shippingService: ShippingService, private _Rout: Router) { }
   // _cartItems: ShoppingCartItem[] = [];
   _buyItems: BuynowItem[] = [];
+  buy_items = new BuynowItem();
   shipping = new ShippingModel();
   product = new Product();
   productId: string;
@@ -72,7 +73,12 @@ export class BuyItemsComponent implements OnInit {
     order.datePlaced = new Date().getTime();
     order.amount = this.buyItemTotal
     order.userId = localStorage.getItem('loggedInUserId')!;
-    order.buyItems = this._buyItems;
+    order.buyItems = {
+      name: this.buy_items.name,
+      category: this.buy_items.category,
+      imgUrl: this.buy_items.imgUrl,
+      price: this.buy_items.price
+    };
     order.shippingDetails = {
       name: this.shipping.name,
       addressLine1: this.shipping.addressLine1,

@@ -38,7 +38,7 @@ export class ShoppingCartService {
     }
 
     buyNowItem(_buyItems: BuynowItem) {
-        this.buyItems.push(_buyItems);
+        // this.buyItems.push(_buyItems);
         this.saveBuyItems();
     }
     clearBuyItems() {
