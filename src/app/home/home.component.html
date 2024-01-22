@@ -3,7 +3,7 @@
         <select class="form-control" [(ngModel)]="selectedCategory" (change)="changeCategory($event)"
             name="selectCategory" (keyup)="loadCategories()">
             <option value="">All Categories</option>
-            <option *ngFor="let category of categories" [ngValue]="category.name">
+            <option *ngFor="let category of categories" [ngValue]="category.id">
                 {{ category.name }}
             </option>
         </select>
@@ -16,11 +16,11 @@
         <hr>
     </div>
 </div>
-<div *ngIf="searchTerm != product.name && searchTerm" style="text-align: center;">
+<!-- <div *ngIf="!loadProducts && searchTerm" style="text-align: center;">
     <img src="assets\items Not found.png" style="width: 50%;height: 300px;">
     <h4>Sorry, no results found! </h4>
     <h6>Please check the spelling or try searching for something else</h6>
-</div>
+</div> -->
 
 <label *ngFor="let product of products" style="margin:5px ;">
     <div class="card" style="width: 18rem;">
@@ -45,8 +45,8 @@
             <table style="width: 100%;">
                 <tr>
                     <td style="width:100%">
-                        <button (click)="buyNow(product)" [routerLink]="['/buy-item',product.id]"
-                            class="btn btn-outline-primary" style="width: 100%;">Buy Now</button>
+                        <button (click)="buyNow(product)" class="btn btn-outline-primary" style="width: 100%;">Buy
+                            Now</button>
                     </td>
                     <!-- <td style="width:50%;">
                         <button [routerLink]="['/view-product',product.id]" class="btn btn-outline-info"

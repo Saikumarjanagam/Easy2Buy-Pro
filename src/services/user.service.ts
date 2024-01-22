@@ -26,7 +26,7 @@ export class UserService {
         return this.fireStore.doc('users' + '/' + id).delete()
     }
     getById(id: string) {
-        return this.fireStore.doc<User>('users' + '/' + id).valueChanges()
+        return this.fireStore.doc('users/' + id).valueChanges()
     }
 
     get firstName() {

@@ -15,7 +15,7 @@
         <select class="form-control" [ngModel]="selectedCategory" (change)="changeCategory($event)"
             name="selectCategory" (keyup)="loadCategories()">
             <option value="">All Categories</option>
-            <option *ngFor="let category of categories" [ngValue]="category.name">
+            <option *ngFor="let category of categories" [ngValue]="category.id">
                 {{ category.name }}
             </option>
         </select>

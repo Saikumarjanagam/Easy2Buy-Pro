@@ -1,13 +1,16 @@
 <div class="card componentStyle">
     <div style="margin: 1rem;">
-        <h2>Shipping</h2>
-        <hr>
         <div class="row">
             <div class="col-6">
                 <form #f="ngForm">
+                    <h4>Shipping Address</h4>
                     <div class="mb-3">
                         <input #name="ngModel" placeholder="Name" name="name" [(ngModel)]="shipping.name" type="text"
                             class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <input #name="ngModel" placeholder="Mobile" name="Mobile" [(ngModel)]="shipping.mobile"
+                            type="number" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <input #addressLine1="ngModel" name="addressLine1" [(ngModel)]="shipping.addressLine1"
@@ -34,14 +37,28 @@
                 </form>
             </div>
             <div class="col-6">
-                <div class="card">
+                <div style="border-left: 1px solid rgb(83, 103, 127);">
                     <div class="card-body">
                         <h4 class="card-title">Order Summary</h4>
-                        <p class="card-text">You have {{ totalItemsCount }} items in your shopping cart.</p>
+                        <!-- <p class="card-text">You have {{ totalItemsCount }} items in your shopping cart.</p> -->
                         <ul class="list-group list-group-flush">
                             <li *ngFor="let item of _cartItems" class="list-group-item">
-                                {{ item.quantity }} x {{ item.name }}
+                                <table style="width: 100%;">
+                                    <tr>
+                                        <td style="width: 20%;">
+                                            <img src="{{item.imgUrl}}" style="width: 100px;height: 75px;">
+                                        </td>
+                                        <td style="border-left: 2px solid green;width: 4%;"></td>
+                                        <td style="width: 45%;"><b> {{ item.name }}</b></td>
+                                    </tr>
+                                </table>
+
                                 <div class="float-end">
+                                    {{ item.quantity }} <span
+                                        *ngIf="item.category=='zVLgR0YwKN13dLU3OTdN' || item.category=='X4l49Fgmq3OLw0UUW2Dz' ">Kg</span>
+                                    x
+                                    {{item.price |
+                                    currency:'INR':'symbol'}} =
                                     {{ item.totalPrice | currency:'INR':'symbol' }}
                                 </div>
                             </li>

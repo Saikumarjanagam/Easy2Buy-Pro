@@ -1,13 +1,17 @@
 <div class="card componentStyle">
     <div style="margin: 1rem;">
-        <h2>Shipping</h2>
-        <hr>
+
         <div class="row">
             <div class="col-6">
                 <form #f="ngForm">
+                    <h4>Shipping Address</h4>
                     <div class="mb-3">
                         <input #name="ngModel" placeholder="Name" name="name" [(ngModel)]="shipping.name" type="text"
                             class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <input #name="ngModel" placeholder="Mobile" name="Mobile" [(ngModel)]="shipping.mobile"
+                            type="number" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <input #addressLine1="ngModel" name="addressLine1" [(ngModel)]="shipping.addressLine1"
@@ -34,26 +38,34 @@
                 </form>
             </div>
             <div class="col-6">
-                <div class="card">
+                <div style="border-left: 1px solid rgb(83, 103, 127);">
+                    <h4 style="margin-left: 25px;color:green;">Order Summary</h4>
+                    <div class="card-body" style="text-align: center;">
+                        <img src="{{product.imgUrl}}" style="width: 300px;height: 180px;">
+                    </div>
                     <div class="card-body">
-                        <h4 class="card-title">Order Summary</h4>
-                        <p class="card-text">You have {{ totalItemsCount }} items in your shopping cart.</p>
+
+                        <!-- <p class="card-text">You have {{ totalItemsCount }} items to purchase.</p> -->
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                {{ totalItemsCount }} x {{ product.name }}
+                                <b> {{ product.name }}</b>
                                 <div class="float-end">
-                                    {{ buyItemTotal | currency:'INR':'symbol' }}
+                                    {{ totalItemsCount }} <span
+                                        *ngIf="product.category=='zVLgR0YwKN13dLU3OTdN' || product.category=='X4l49Fgmq3OLw0UUW2Dz' ">Kg</span>
+
+                                    x {{ product.price | currency:'INR' }}
                                 </div>
                             </li>
                             <li class="list-group-item fw-bold">
                                 Total
                                 <div class="float-end">
                                     {{ buyItemTotal | currency:'INR':'symbol' }}
+
                                 </div>
                             </li>
                         </ul>
                     </div>
-                    <div class="card-footer">
+                    <div style="margin-left: 25px;">
                         <button (click)="addItem()" class="btn btn-outline-success">+</button> &nbsp;
                         <button *ngIf="totalItemsCount > 1" (click)="minusItem()"
                             class="btn btn-outline-success">-</button>

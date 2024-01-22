@@ -31,7 +31,8 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.loadProducts();
     this.loadCategories();
-    this._cartService.clearBuyItems();
+    localStorage.removeItem('buyProductId');
+    //this._cartService.clearBuyItems();
   }
   loadProducts() {
     this._productService.read(this.searchTerm, this.selectedCategory)
@@ -59,7 +60,7 @@ export class HomeComponent implements OnInit {
 
   changeCategory($event: any) {
     if ($event.target.selectedIndex > 0)
-      this.selectedCategory = this.categories[$event.target.selectedIndex - 1].name!;
+      this.selectedCategory = this.categories[$event.target.selectedIndex - 1].id!;
     else
       this.selectedCategory = '';
     this.loadProducts();
@@ -71,19 +72,18 @@ export class HomeComponent implements OnInit {
     this._cartService.addItemToCart(_cartItem);
   }
   buyNow(_product: Product) {
-    let _cartItem = _product as unknown as BuynowItem;
+    //let _cartItem = _product as unknown as BuynowItem;
     // _cartItem.quantity = 1;
     // _cartItem.totalPrice = _cartItem.quantity * _cartItem.price;
     this._cartService._buyItemsQuantity = 1;
-    this.router.navigate(['/buy-item', this.product.id])
-    this._cartService.buyNowItem(_cartItem);
     if (this._userService.firstName) {
-      this.router.navigate(['/shipping-order'])
+      this.router.navigate(['/buy-item', _product.id])
     }
     else {
-      this.router.navigate(['/login'])
+      this.router.navigate(['/login']),
+        localStorage.setItem('buyProductId', _product.id!)
     }
-    this._cartService.checkOut = true;
+    this._cartService.buyNowCheck = true;
   }
   removeFromCart(_product: Product) {
     let _cartItem = _product as unknown as ShoppingCartItem;

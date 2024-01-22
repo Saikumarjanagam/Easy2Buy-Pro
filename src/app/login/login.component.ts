@@ -27,6 +27,10 @@ export class LoginComponent {
     return this.logInForm.get('password')
   }
 
+  get BuyProductId() {
+    return localStorage.getItem('buyProductId');
+  }
+
   login() {
     this._userService.validate(this.email, this.password)
       .subscribe({
@@ -51,7 +55,10 @@ export class LoginComponent {
 
       this.toastr.success('Login successful...!');
       this.route.navigate(['/home']);
-      if (this._cartService.checkOut) {
+      if (this._cartService.buyNowCheck) {
+        this.route.navigate(['/buy-item', this.BuyProductId])
+      }
+      else if (this._cartService.checkOut) {
         this.route.navigate(['/shipping-order'])
       }
       else {

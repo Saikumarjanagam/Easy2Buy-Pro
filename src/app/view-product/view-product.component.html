@@ -37,8 +37,7 @@
                             (click)="addToCart(product)"><i class="bi bi-bag-plus-fill"></i></button></td>
                 </ng-template>
                 <td style="width: 50%;margin-left: 5px;">
-                    <button (click)="buyNow(product)" routerLink="/shopping-cart" class="btn btn-outline-primary"
-                        style="width: 100%;">Buy
+                    <button (click)="buyNow(this.product)" class="btn btn-outline-primary" style="width: 100%;">Buy
                         Now</button>
                 </td>
             </tr>

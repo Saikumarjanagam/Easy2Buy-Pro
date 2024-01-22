@@ -11,6 +11,7 @@ import { BuynowItem } from "src/models/buynow-item.model";
 export class ShoppingCartService {
     public checkOut: boolean = false;
     public buyNowCheck: boolean = false;
+    public shopping_Items: boolean = true;
     private cartItems: ShoppingCartItem[] = [];
     private buyItems: BuynowItem[] = [];
     private _cartItemsQuantity: number = 0;
@@ -37,15 +38,16 @@ export class ShoppingCartService {
         this._buyItemsQuantity -= 1
     }
 
-    buyNowItem(_buyItems: BuynowItem) {
-        // this.buyItems.push(_buyItems);
-        this.saveBuyItems();
-    }
-    clearBuyItems() {
-        let buyItemsStorageKey = this._userService.loggedInUserId + 'buy_items';
-        localStorage.removeItem(buyItemsStorageKey);
+    // buyNowItem(_buyItems: BuynowItem) {
+    //     this.loadBuyItems();
+    //     //this.buyItems.push(_buyItems);
+    //     this.saveBuyItems();
+    // }
+    // clearBuyItems() {
+    //     let buyItemsStorageKey = this._userService.loggedInUserId + 'buy_items';
+    //     localStorage.removeItem(buyItemsStorageKey);
 
-    }
+    // }
 
     addItemToCart(_cartItem: ShoppingCartItem) {
         this.loadCartItems();
@@ -109,13 +111,17 @@ export class ShoppingCartService {
 
         this.cartCount.next(this._cartItemsQuantity);
     }
-    saveBuyItems() {
-        let buyItemsStorageKey = this._userService.loggedInUserId + 'buy_items';
-        // let buyItemsCountKey = this._userService.loggedInUserId + 'buy_count';
+    // loadBuyItems() {
+    //     let buyItemsStorageKey = this._userService.loggedInUserId + 'buy_items';
+    //     this.buyItems = JSON.parse(localStorage.getItem(buyItemsStorageKey) || '[]');
+    // }
+    // saveBuyItems() {
+    //     let buyItemsStorageKey = this._userService.loggedInUserId + 'buy_items';
+    //     // let buyItemsCountKey = this._userService.loggedInUserId + 'buy_count';
 
-        localStorage.setItem(buyItemsStorageKey, JSON.stringify(this.buyItems));
-        // localStorage.setItem(buyItemsCountKey, this._cartItemsQuantity.toString());
-    }
+    //     localStorage.setItem(buyItemsStorageKey, JSON.stringify(this.buyItems));
+    //     // localStorage.setItem(buyItemsCountKey, this._cartItemsQuantity.toString());
+    // }
 
 
 }

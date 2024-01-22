@@ -49,7 +49,7 @@ export class ProductsComponent implements OnInit {
 
   changeCategory($event: any) {
     if ($event.target.selectedIndex > 0)
-      this.selectedCategory = this.categories[$event.target.selectedIndex - 1].name!;
+      this.selectedCategory = this.categories[$event.target.selectedIndex - 1].id!;
     else
       this.selectedCategory = '';
     this.loadProducts();

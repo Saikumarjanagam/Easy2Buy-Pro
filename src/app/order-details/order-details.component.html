@@ -1,22 +1,35 @@
 <div class="card p-3">
     <table style="width: 100%;">
         <tr>
-            <td>
-                <h3>Order Details</h3>
-            </td>
-            <td class="text-end" style="vertical-align: middle;">
-                <b>{{orderDetail.datePlaced | date}}</b>
-            </td>
-        </tr>
-    </table>
-    <hr>
-    <table style="width: 100%;">
-        <tr>
-            <td style="width:49%;">
-                <div style="margin-right: 5%;">
+            <td style="width:49%;vertical-align: top;">
+                <div style="margin-right: 5%;padding: 10px;" class="shadow p-3 mb-5 bg-body-tertiary rounded">
+                    <h3>Order Details</h3>
+                    <hr>
+                    <div class="mb-2">
+                        <b>Date of Order : </b> {{orderDetail.datePlaced | date}}
+                    </div>
+                    <div class="mb-2">
+                        <b>Customer Name : </b> {{orderDetail.shippingDetails.name}}
+                    </div>
+                    <div class="mb-2">
+                        <b>Mobile Number : </b> {{orderDetail.shippingDetails.mobile}}
+                    </div>
                     <div>
+                        <b>Delivery Address : </b>
+                        <div>
+                            {{orderDetail.shippingDetails.addressLine1}} , {{orderDetail.shippingDetails.addressLine2}}
+                            ,
+                            {{orderDetail.shippingDetails.city}} , {{orderDetail.shippingDetails.pincode}}.
+                        </div>
+                    </div>
+                    <!-- <div>
                         <label style="padding-left: 7px;">Name</label>
                         <input name="name" disabled [value]="orderDetail.shippingDetails.name" type="text"
+                            class="form-control">
+                    </div>
+                    <div>
+                        <label style="padding-left: 7px;">Mobile</label>
+                        <input name="Mobile" disabled [value]="orderDetail.shippingDetails.mobile" type="text"
                             class="form-control">
                     </div>
                     <div class="mt-2">
@@ -40,21 +53,27 @@
                         <input disabled name="pincode" [value]="orderDetail.shippingDetails.pincode" type="text"
                             class="form-control">
 
-                    </div>
+                    </div> -->
                 </div>
             </td>
             <td style="border-left: 2px solid green;width: 2%">
             </td>
             <td style="vertical-align: top;width: 49%;">
-                <h4>Order Summary</h4>
+                <h4 style="color: green;">Order Summary</h4>
                 <ul class="list-group list-group-flush">
-                    <li *ngFor="let item of orderDetail.items" class="list-group-item">
-                        {{ item.quantity }} x {{ item.name }}
+                    <li *ngFor="let item of orderDetail.items" class="list-group-item shadow mb-1">
+
                         <div class="float-end">
-                            {{ item.totalPrice | currency:'INR' }}
+                            {{ item.quantity }} <span
+                                *ngIf="item.category=='zVLgR0YwKN13dLU3OTdN' || item.category=='X4l49Fgmq3OLw0UUW2Dz' ">Kg</span>
+                            x
+                            {{item.price | currency:'INR'}}
+                            <hr>
+                            <b> = {{ item.totalPrice | currency:'INR' }}</b>
                         </div>
                         <div>
-                            <img src="{{item.imgUrl}}">
+                            <img src="{{item.imgUrl}}" style="width: 90px;height: 90px;"><br>
+                            {{ item.name }}
                         </div>
                     </li>
                     <!-- <li class="list-group-item fw-bold">
@@ -65,22 +84,30 @@
                     </li> -->
                 </ul>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
-                        {{ BuyItemCount }} x {{orderDetail.buyItems.name }}
+                    <li class="list-group-item shadow" *ngIf="buyOrderDetails.buyItems">
+                        {{buyOrderDetails.buyItems.name }}
                         <div class="float-end">
-                            {{ BuyItemTotal | currency:'INR' }}
+                            {{ BuyItemCount }} <span
+                                *ngIf="buyOrderDetails.buyItems.category=='zVLgR0YwKN13dLU3OTdN' || buyOrderDetails.buyItems.category=='X4l49Fgmq3OLw0UUW2Dz' ">Kg</span>
+                            x {{ buyOrderDetails.buyItems.price | currency:'INR' }}
                         </div>
                         <div>
-                            <img src="{{orderDetail.buyItems.imgUrl}}">
+                            <img src="{{buyOrderDetails.buyItems.imgUrl}}" style="width: 90px;height: 90px;">
                         </div>
                     </li>
-                    <li class="list-group-item fw-bold">
-                        Total
+                    <li class="list-group-item fw-bold shadow">
+                        Total Amount
                         <div class="float-end">
                             {{ orderDetail.amount | currency:'INR' }}
                         </div>
+
                     </li>
                 </ul>
+                <div *ngIf="this._shippingService._AdminOrders">
+                    User Id : {{orderDetail.userId}}
+                    <br>
+                    User Mobile : {{orderDetail.shippingDetails.mobile}}
+                </div>
             </td>
         </tr>
     </table>

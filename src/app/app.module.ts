@@ -36,10 +36,12 @@ import { UnAuthComponent } from './un-auth/un-auth.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { BuyItemsComponent } from './buy-items/buy-items.component';
+import { AboutComponent } from './about/about.component';
 
 const route: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'category', component: CategoryComponent, canActivate: [AdminGuard] },
@@ -80,6 +82,7 @@ const route: Routes = [
     NotFoundComponent,
     UnAuthComponent,
     BuyItemsComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,

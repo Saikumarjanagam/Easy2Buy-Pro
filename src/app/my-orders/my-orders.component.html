@@ -17,20 +17,23 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Customer</th>
-                    <th>Date</th>
+                    <!-- <th>Product</th> -->
+                    <th>Customer Name</th>
+                    <th>Date of Order</th>
                     <th>Amount</th>
-                    <th>Action</th>
+                    <!-- <th>Action</th> -->
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let x of myOrders | paginate: { itemsPerPage:this.orderPerPage, currentPage: p }">
-                    <td [routerLink]="['/order-details', x.id]">{{x.shippingDetails.name}}</td>
-                    <td [routerLink]="['/order-details', x.id]">{{x.datePlaced |date}}</td>
-                    <td [routerLink]="['/order-details', x.id]">{{x.amount |currency:'INR'}}</td>
-                    <td>
+                <tr *ngFor="let x of myOrders | paginate: { itemsPerPage:this.orderPerPage, currentPage: p }"
+                    (click)="my_Orders(x.id)">
+                    <!-- <td><img src="{{orders.items.imgUrl}}"></td> -->
+                    <td>{{x.shippingDetails.name}}</td>
+                    <td>{{x.datePlaced |date}}</td>
+                    <td>{{x.amount |currency:'INR'}}</td>
+                    <!-- <td>
                         <button (click)="deleteOrder(x.id)" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
-                    </td>
+                    </td> -->
                 </tr>
             </tbody>
 

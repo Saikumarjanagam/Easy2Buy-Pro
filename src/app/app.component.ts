@@ -33,6 +33,7 @@ export class AppComponent {
     this.toastr.success('LogOut Successfully');
     this.router.navigate(['/login']);
     this._cartService.checkOut = false;
+    this._cartService.buyNowCheck = false;
   }
 
 

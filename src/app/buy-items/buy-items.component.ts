@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { BuyOrder } from 'src/models/buy-order.model';
 import { BuynowItem } from 'src/models/buynow-item.model';
 import { Category } from 'src/models/category.model';
 import { Order } from 'src/models/order.model';
@@ -18,10 +19,10 @@ import { ShoppingCartService } from 'src/services/shopping-cart.service';
   styleUrls: ['./buy-items.component.css']
 })
 export class BuyItemsComponent implements OnInit {
-  constructor(private _productService: ProductService, private toastr: ToastrService, private router: ActivatedRoute, private _categoryService: categoryService, private _cartService: ShoppingCartService, private _shippingService: ShippingService, private _Rout: Router) { }
+  constructor(private _productService: ProductService, private toastr: ToastrService, private router: ActivatedRoute, private _cartService: ShoppingCartService, private _shippingService: ShippingService, private _Rout: Router) { }
   // _cartItems: ShoppingCartItem[] = [];
-  _buyItems: BuynowItem[] = [];
-  buy_items = new BuynowItem();
+  // _buyItems: BuynowItem[] = [];
+  // buy_items = new BuynowItem();
   shipping = new ShippingModel();
   product = new Product();
   productId: string;
@@ -29,8 +30,7 @@ export class BuyItemsComponent implements OnInit {
   category = new Category();
 
   ngOnInit(): void {
-    this.loadProducts(),
-      this.loadCategories()
+    this.loadProducts()
   }
   get totalPrice() {
     return this._cartService.BuyItemsTotal;
@@ -57,39 +57,23 @@ export class BuyItemsComponent implements OnInit {
       this.product = response as unknown as Product
     })
   }
-  loadCategories() {
-    this._categoryService.read()
-      .subscribe(response => {
-        this.categories = response.map((data) => {
-          return {
-            id: data.payload.doc.id,
-            ...data.payload.doc.data() as Category
-          }
-        });
-      })
-  }
   placeOrder() {
-    let order = new Order();
+    let order = new BuyOrder();
     order.datePlaced = new Date().getTime();
     order.amount = this.buyItemTotal
     order.userId = localStorage.getItem('loggedInUserId')!;
-    order.buyItems = {
-      name: this.buy_items.name,
-      category: this.buy_items.category,
-      imgUrl: this.buy_items.imgUrl,
-      price: this.buy_items.price
-    };
+    order.buyItems = this.product;
     order.shippingDetails = {
       name: this.shipping.name,
+      mobile: this.shipping.mobile,
       addressLine1: this.shipping.addressLine1,
       addressLine2: this.shipping.addressLine2,
       city: this.shipping.city,
       pincode: this.shipping.pincode
     };
-
-    this._shippingService.create(order)
+    localStorage.removeItem('buyProductId');
+    this._shippingService.buyOrderCreate(order)
       .then((response) => {
-        this._cartService.clearBuyItems();
         this.toastr.success('Order placed successfully...!');
         this._Rout.navigate(['/order-success']);
       })

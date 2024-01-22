@@ -29,7 +29,7 @@
                     <td>{{x.datePlaced |date}}</td>
                     <td>{{x.amount |currency:'INR'}}</td>
                     <td>
-                        <a [routerLink]="['/order-details', x.id]">view</a> &nbsp;
+                        <button (click)="admin_Orders(x.id)">view</button> &nbsp;
                         <button (click)="deleteOrder(x.id)" class="btn btn-danger"><i class="bi bi-trash3"></i></button>
                     </td>
                 </tr>

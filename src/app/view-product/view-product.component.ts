@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Category } from 'src/models/category.model';
 import { Product } from 'src/models/product.model';
@@ -7,6 +7,7 @@ import { ShoppingCartItem } from 'src/models/shopping-cart-item';
 import { categoryService } from 'src/services/category.service';
 import { ProductService } from 'src/services/product.service';
 import { ShoppingCartService } from 'src/services/shopping-cart.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-view-product',
@@ -14,7 +15,7 @@ import { ShoppingCartService } from 'src/services/shopping-cart.service';
   styleUrls: ['./view-product.component.css']
 })
 export class ViewProductComponent implements OnInit {
-  constructor(private _productService: ProductService, private toastr: ToastrService, private router: ActivatedRoute, private _categoryService: categoryService, private _cartService: ShoppingCartService) { }
+  constructor(private _productService: ProductService, private toastr: ToastrService, private router: ActivatedRoute, private _categoryService: categoryService, private _cartService: ShoppingCartService, private route: Router, private _userService: UserService) { }
   product = new Product();
   // items: ItemModel[] = [];
   productId: string;
@@ -59,10 +60,15 @@ export class ViewProductComponent implements OnInit {
     this._cartService.addItemToCart(_cartItem);
   }
   buyNow(_product: Product) {
-    let _cartItem = _product as unknown as ShoppingCartItem;
-    _cartItem.quantity = 1;
-    _cartItem.totalPrice = _cartItem.quantity * _cartItem.price;
-    // this._cartService.buyNow(_cartItem);
+
+    if (this._userService.firstName) {
+      this.route.navigate(['/buy-item', this.productId])
+    }
+    else {
+      this.route.navigate(['/login']),
+        localStorage.setItem('buyProductId', this.productId!)
+    }
+    this._cartService.buyNowCheck = true;
   }
   removeFromCart(_product: Product) {
     let _cartItem = _product as unknown as ShoppingCartItem;

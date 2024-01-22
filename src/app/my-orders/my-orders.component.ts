@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Order } from 'src/models/order.model';
+import { ShoppingCartItem } from 'src/models/shopping-cart-item';
 import { ShippingService } from 'src/services/shipping.service';
 
 @Component({
@@ -14,12 +16,13 @@ export class MyOrdersComponent implements OnInit {
   myOrders: Order[] = [];
   orders = new Order()
   orderPerPage: number = 5;
-
-  constructor(public service: ShippingService, private toastr: ToastrService) { }
+  _myOrderDetails = new ShoppingCartItem();
+  constructor(public service: ShippingService, private toastr: ToastrService, private router: Router) { }
   ngOnInit(): void {
     this.loadData();
   }
   loadData() {
+    //this.orders.items.lastIndexOf(this._myOrderDetails)
     let userId = localStorage.getItem('loggedInUserId');
 
     this.service.getUserOrders(userId!)
@@ -41,5 +44,9 @@ export class MyOrdersComponent implements OnInit {
       .catch((error: Response) => {
         this.toastr.error('Un-handled exception occured...!');
       });
+  }
+  my_Orders(id: any) {
+    this.router.navigate(['/order-details', id]);
+    this.service._AdminOrders = false;
   }
 }

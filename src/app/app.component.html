@@ -30,7 +30,7 @@
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <i class="bi bi-person-circle"></i> {{userService.firstName}}
             </a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu" style="float: right;">
               <!-- <li><a class="dropdown-item" href="#">Action</a></li> -->
               <li> <a *ngIf="userService.firstName" routerLink="/my-orders" class="dropdown-item a">MyOrders</a></li>
               <li> <a *ngIf="userService.isAdmin" routerLink="/users" class="dropdown-item a">Users</a></li>
@@ -54,6 +54,14 @@
     </div>
   </nav>
 </div>
-<div style="padding: 20px;width: 100%">
+<div style="padding:20px 20px 0px 20px;width: 100%">
   <router-outlet></router-outlet>
+</div>
+<div style="background-color: rgb(79, 77, 77);color: white;padding: 10px;">
+  <a routerLink="/about" style="margin-left: 30px;">About Us</a>
+  <a style="margin-left: 30px;" href="linkedin.com/in/janagam-saikumar-737464240"><i class="bi bi-linkedin"></i></a>
+  <a style="margin-left: 30px;">Naukri</a>
+  <label style="margin-left: 30px;"><i class="bi bi-envelope-fill"></i> janagamsaikumar66@gmail.com</label>
+  <label style="margin-left: 30px;;"><i class="bi bi-telephone-fill"></i> +91 8185995982</label>
+  <label style="margin-left: 30px;"><i class="bi bi-whatsapp"></i> +91 8185995982</label><br>
 </div>
