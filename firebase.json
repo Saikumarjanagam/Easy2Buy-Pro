@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/easy2buy-pro",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
